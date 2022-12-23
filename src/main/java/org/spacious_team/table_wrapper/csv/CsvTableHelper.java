@@ -27,7 +27,6 @@ import java.util.function.Predicate;
 import static lombok.AccessLevel.PRIVATE;
 import static org.spacious_team.table_wrapper.api.TableCellAddress.NOT_FOUND;
 
-@NoArgsConstructor(access = PRIVATE)
 final class CsvTableHelper {
 
     static TableCellAddress find(String[][] table, Object expected,

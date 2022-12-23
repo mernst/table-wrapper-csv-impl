@@ -29,16 +29,12 @@ import org.spacious_team.table_wrapper.csv.CsvTableTest.TableHeader;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ExtendWith(MockitoExtension.class)
 class CsvTableFactoryTest {
 
-    @Spy
     CsvTableFactory factory;
-    @Mock
     CsvReportPage reportPage;
     TableCellRange tableRange = TableCellRange.EMPTY_RANGE;
 
-    @Test
     void create() {
         CsvTable table = (CsvTable)
                 factory.create(reportPage, "table name", tableRange, TableHeader.class, 1);

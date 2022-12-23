@@ -40,15 +40,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CsvTableCellTest {
 
-    @ParameterizedTest
-    @ValueSource(ints = {-1, 0, 1, 2, 3})
     void getColumnIndex(int colNum) {
         String[] row = new String[2];
         TableCell cell = CsvTableCell.of(row, colNum);
         assertEquals(colNum, cell.getColumnIndex());
     }
 
-    @Test
     void getValue() {
         String[] row = new String[]{"object1", "object2"};
         TableCell cell = CsvTableCell.of(row, 0);
@@ -58,7 +55,6 @@ class CsvTableCellTest {
         assertNotEquals(notEqualsCell.getValue(), cell.getValue());
     }
 
-    @Test
     void getIntValue() {
         String[] row = new String[]{"1024", "1025"};
         TableCell cell = CsvTableCell.of(row, 0);
@@ -68,7 +64,6 @@ class CsvTableCellTest {
         assertNotEquals(notEqualsCell.getIntValue(), cell.getIntValue());
     }
 
-    @Test
     void getLongValue() {
         String[] row = new String[]{"1024", "1025"};
         TableCell cell = CsvTableCell.of(row, 0);
@@ -78,7 +73,6 @@ class CsvTableCellTest {
         assertNotEquals(notEqualsCell.getLongValue(), cell.getLongValue());
     }
 
-    @Test
     void getDoubleValue() {
         String[] row = new String[]{"10.24", "10.24000", "10.2400000000000000000000000000000000001", "10.24001"};
         TableCell cell0 = CsvTableCell.of(row, 0);
@@ -97,7 +91,6 @@ class CsvTableCellTest {
     /**
      * @see <a href="https://stackoverflow.com/questions/6787142/bigdecimal-equals-versus-compareto">Stack overflow</a>
      */
-    @Test
     void getBigDecimalValue() {
         BigDecimal expected = new BigDecimal("10.24");
         String[] row = new String[]{"10.24", "10.24000", "10.2400000000000000000000000000000000001"};
@@ -115,7 +108,6 @@ class CsvTableCellTest {
         assertEquals(-1, cell1.getBigDecimalValue().compareTo(cell2.getBigDecimalValue()));
     }
 
-    @Test
     void getStringValue() {
         String[] row = new String[]{"object1", "object2"};
         TableCell cell = CsvTableCell.of(row, 0);
@@ -125,8 +117,6 @@ class CsvTableCellTest {
         assertNotEquals(notEqualsCell.getStringValue(), cell.getStringValue());
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"2022-10-11", "11-10-2022", "11 10 2022", "2022/10/11", "11.10.2022"})
     void getInstantValueWithDate(String date) {
         Instant expected = LocalDate.of(2022, 10, 11)
                 .atTime(12, 0)
@@ -137,9 +127,6 @@ class CsvTableCellTest {
         assertEquals(expected, cell.getInstantValue());
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"2022-10-11 03:01:00", "03:01:00 11-10-2022", "11 10 2022 03:01:00",
-            "03:01:00 2022/10/11", "11.10.2022 03:01:00"})
     void getInstantValueWithDateTime(String dateTime) {
         Instant expected = LocalDate.of(2022, 10, 11)
                 .atTime(3, 1)
@@ -150,8 +137,6 @@ class CsvTableCellTest {
         assertEquals(expected, cell.getInstantValue());
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = "2022-10-11T03:01:00")
     void getInstantValueWithFormat(String dateTime) {
         ZoneId zoneId = ZoneOffset.ofHours(3);
         InstantParser instantParser = InstantParser.builder()
@@ -168,9 +153,6 @@ class CsvTableCellTest {
         assertEquals(expected, cell.getInstantValue());
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"2022-10-11 03:01:00", "03:01:00 11-10-2022", "11 10 2022 03:01:00",
-            "03:01:00 2022/10/11", "11.10.2022 03:01:00"})
     void getLocalDateTimeValue(String dateTime) {
         LocalDateTime expected = LocalDate.of(2022, 10, 11)
                 .atTime(3, 1);
@@ -179,7 +161,6 @@ class CsvTableCellTest {
         assertEquals(expected, cell.getLocalDateTimeValue());
     }
 
-    @Test
     void testEqualsAndHashCode() {
         EqualsVerifier
                 .forClass(CsvTableCell.class)
@@ -188,7 +169,6 @@ class CsvTableCellTest {
                 .verify();
     }
 
-    @Test
     void testToString() {
         TableCell cell = CsvTableCell.of(new String[]{"data"}, 0);
         assertEquals("CsvTableCell(columnIndex=0, value=data)",

@@ -26,11 +26,8 @@ import org.spacious_team.table_wrapper.api.AbstractTableCell;
 import org.spacious_team.table_wrapper.api.EmptyTableCell;
 import org.spacious_team.table_wrapper.api.TableCell;
 
-@ToString
-@EqualsAndHashCode(of = "value", callSuper = false)
 public class CsvTableCell extends AbstractTableCell<String> {
 
-    @Getter
     private final int columnIndex;
     private final String value;
 
@@ -39,13 +36,13 @@ public class CsvTableCell extends AbstractTableCell<String> {
     }
 
     public static TableCell of(String[] row, int columnIndex, CsvCellDataAccessObject dao) {
-        @Nullable String cellValue = getCellValue(row, columnIndex);
+        String cellValue = getCellValue(row, columnIndex);
         return cellValue == null ?
                 EmptyTableCell.of(columnIndex) :
                 new CsvTableCell(cellValue, columnIndex, dao);
     }
 
-    private static @Nullable String getCellValue(String[] row, int columnIndex) {
+    private static String getCellValue(String[] row, int columnIndex) {
         return (columnIndex >= 0) && (columnIndex < row.length) ?
                 row[columnIndex] :
                 null;

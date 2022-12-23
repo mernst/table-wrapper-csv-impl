@@ -52,8 +52,6 @@ class CsvTableRowTest {
         );
     }
 
-    @ParameterizedTest
-    @MethodSource("getRowNumRowColNum")
     void getCell(int rowNum, String[] row, int colNum) {
         CsvTableRow csvTableRow = CsvTableRow.of(row, rowNum);
         if (colNum < 0 || colNum >= row.length) {
@@ -65,8 +63,6 @@ class CsvTableRowTest {
         }
     }
 
-    @ParameterizedTest
-    @MethodSource("getRowNumRowColNum")
     void getCellValue(int rowNum, String[] row, int colNum) {
         CsvTableRow csvTableRow = CsvTableRow.of(row, rowNum);
         if (colNum < 0 || colNum >= row.length) {
@@ -76,15 +72,11 @@ class CsvTableRowTest {
         }
     }
 
-    @ParameterizedTest
-    @MethodSource("getRowNumRowColNum")
     void getRowNum(int rowNum, String[] row) {
         CsvTableRow csvTableRow = CsvTableRow.of(row, rowNum);
         assertEquals(rowNum, csvTableRow.getRowNum());
     }
 
-    @ParameterizedTest
-    @MethodSource("getRowNumRowColNum")
     void getFirstCellNum(int rowNum, String[] row) {
         CsvTableRow csv = CsvTableRow.of(row, rowNum);
         if (row.length == 0) {
@@ -94,14 +86,11 @@ class CsvTableRowTest {
         }
     }
 
-    @ParameterizedTest
-    @MethodSource("getRowNumRowColNum")
     void getLastCellNum(int rowNum, String[] row) {
         CsvTableRow csv = CsvTableRow.of(row, rowNum);
         assertEquals(row.length - 1, csv.getLastCellNum());
     }
 
-    @Test
     @SuppressWarnings("ConstantConditions")
     void rowContains() {
         String[] row = new String[]{null, "1", "2.1", "2.20", "abc", "2020-01-01T01:02:03"};
@@ -115,7 +104,6 @@ class CsvTableRowTest {
         assertTrue(csvTableRow.rowContains(localDateTime));
     }
 
-    @Test
     void iterator() {
         @SuppressWarnings("ConstantConditions")
         String[] row = new String[]{null, "1", "2.1", "2.20", "abc", "2020-01-01T01:02:03"};
@@ -130,12 +118,11 @@ class CsvTableRowTest {
         assertEquals(expected, actual);
     }
 
-    @Test
     void iteratorThrows() {
         @SuppressWarnings("ConstantConditions")
         String[] row = new String[]{null, "1"};
         CsvTableRow csvTableRow = CsvTableRow.of(row, 0);
-        Iterator<@Nullable TableCell> it = csvTableRow.iterator();
+        Iterator<TableCell> it = csvTableRow.iterator();
         //noinspection ConstantConditions
         assertNull(it.next().getValue());
         //noinspection ConstantConditions
@@ -143,7 +130,6 @@ class CsvTableRowTest {
         assertThrows(NoSuchElementException.class, it::next);
     }
 
-    @Test
     void testEqualsAndHashCode() {
         EqualsVerifier
                 .forClass(CsvTableRow.class)
@@ -152,7 +138,6 @@ class CsvTableRowTest {
                 .verify();
     }
 
-    @Test
     void testToString() {
         assertEquals("CsvTableRow(rowNum=0)", CsvTableRow.of(new String[]{"1", "2"}, 0).toString());
     }

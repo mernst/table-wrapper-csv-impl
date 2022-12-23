@@ -30,12 +30,8 @@ import org.spacious_team.table_wrapper.api.Table;
 import org.spacious_team.table_wrapper.api.TableCellRange;
 import org.spacious_team.table_wrapper.api.TableHeaderColumn;
 
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 public class CsvTable extends AbstractTable<CsvTableRow> {
 
-    @Setter
-    @Getter(AccessLevel.PROTECTED)
     private CellDataAccessObject<?, CsvTableRow> cellDataAccessObject = CsvCellDataAccessObject.INSTANCE;
 
     protected <T extends Enum<T> & TableHeaderColumn>

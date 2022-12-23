@@ -31,45 +31,37 @@ import static nl.jqno.equalsverifier.Warning.STRICT_INHERITANCE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 class CsvCellDataAccessObjectTest {
 
     CsvCellDataAccessObject dao;
     InstantParser instantParser;
-    @Mock
     CsvTableRow row;
 
-    @BeforeEach
     void setUp() {
         instantParser = mock(InstantParser.class);
         dao = spy(CsvCellDataAccessObject.of(instantParser));
     }
 
-    @Test
     void getCellNull() {
         //noinspection ConstantConditions
         assertNull(dao.getCell(row, null));
         assertNull(dao.getCell(row, 1));
     }
 
-    @Test
     void getCellNonNull() {
         String expected = "data";
         CsvTableRow row = CsvTableRow.of(new String[]{"", expected}, 1);
         assertEquals(expected, dao.getCell(row, 1));
     }
 
-    @Test
     void getValue() {
         assertEquals("test", dao.getValue("test"));
     }
 
-    @Test
     void getInstantValueNull() {
         assertThrows(NullPointerException.class, () -> dao.getInstantValue(null));
     }
 
-    @Test
     void getInstant() {
         String actual = "test";
 
@@ -79,7 +71,6 @@ class CsvCellDataAccessObjectTest {
         verify(instantParser).parseInstant(actual);
     }
 
-    @Test
     void testEqualsAndHashCode() {
         EqualsVerifier
                 .forClass(CsvCellDataAccessObject.class)
@@ -87,7 +78,6 @@ class CsvCellDataAccessObjectTest {
                 .verify();
     }
 
-    @Test
     void testToString() {
         InstantParser instantParser = InstantParser.builder().defaultZoneId(UTC).build();
         assertEquals("CsvCellDataAccessObject(instantParser=InstantParser(" +

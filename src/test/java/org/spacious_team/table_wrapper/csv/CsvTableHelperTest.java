@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 class CsvTableHelperTest {
 
-    @Test
     void find() {
         @SuppressWarnings("ConstantConditions")
         String[][] table = new String[][]{

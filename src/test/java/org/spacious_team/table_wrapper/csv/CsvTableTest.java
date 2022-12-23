@@ -42,7 +42,6 @@ class CsvTableTest {
     AbstractReportPage<CsvTableRow> reportPage;
     TableCellRange tableRange = TableCellRange.of(10, 20, 0, 1);
 
-    @BeforeEach
     void setUp() {
         //noinspection unchecked
         reportPage = mock(AbstractReportPage.class);
@@ -51,7 +50,6 @@ class CsvTableTest {
         csvTable = new CsvTable(reportPage, "table name", tableRange, TableHeader.class, 1);
     }
 
-    @Test
     void setCellDataAccessObject() {
         CsvCellDataAccessObject dao = mock(CsvCellDataAccessObject.class);
         assertSame(CsvCellDataAccessObject.INSTANCE, csvTable.getCellDataAccessObject());
@@ -61,7 +59,6 @@ class CsvTableTest {
         assertSame(dao, csvTable.getCellDataAccessObject());
     }
 
-    @Test
     void subTable() {
         int addToTop = 3;
         int addToBottom = -2;
@@ -72,7 +69,6 @@ class CsvTableTest {
                 subTable.getTableRange());
     }
 
-    @Test
     void testEqualsAndHashCode() {
         EqualsVerifier
                 .forClass(CsvTable.class)
@@ -81,7 +77,6 @@ class CsvTableTest {
                 .verify();
     }
 
-    @Test
     void testToString() {
         assertEquals("CsvTable(super=AbstractTable(tableName=table name), " +
                         "cellDataAccessObject=CsvCellDataAccessObject(instantParser=InstantParser(" +

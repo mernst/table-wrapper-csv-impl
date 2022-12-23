@@ -31,13 +31,10 @@ import java.util.NoSuchElementException;
 import static org.spacious_team.table_wrapper.api.TableCellAddress.NOT_FOUND;
 import static org.spacious_team.table_wrapper.csv.CsvTableHelper.equalsPredicate;
 
-@ToString(of = "rowNum")
-@EqualsAndHashCode(of = "rowNum", callSuper = false)
 public class CsvTableRow extends AbstractReportPageRow {
 
     private final String[] row;
 
-    @Getter
     private final int rowNum;
     private final TableCell[] cellsCache;
 
@@ -52,7 +49,7 @@ public class CsvTableRow extends AbstractReportPageRow {
     }
 
     @Override
-    public @Nullable TableCell getCell(int i) {
+    public TableCell getCell(int i) {
         if (i < 0 || i >= row.length) {
             return null;
         }
@@ -64,7 +61,7 @@ public class CsvTableRow extends AbstractReportPageRow {
         return cell;
     }
 
-    @Nullable String getCellValue(int i) {
+    String getCellValue(int i) {
         return (i < 0 || i >= row.length) ? null : row[i];
     }
 
@@ -84,8 +81,8 @@ public class CsvTableRow extends AbstractReportPageRow {
     }
 
     @Override
-    public Iterator<@Nullable TableCell> iterator() {
-        return new Iterator<@Nullable TableCell>() {
+    public Iterator<TableCell> iterator() {
+        return new Iterator<TableCell>() {
             private int cellIndex = 0;
 
             @Override
@@ -94,7 +91,7 @@ public class CsvTableRow extends AbstractReportPageRow {
             }
 
             @Override
-            public @Nullable TableCell next() {
+            public TableCell next() {
                 if (hasNext()) {
                     return getCell(cellIndex++);
                 }

@@ -29,28 +29,25 @@ import java.time.Instant;
 import java.time.LocalTime;
 import java.util.Objects;
 
-@ToString
-@EqualsAndHashCode
-@RequiredArgsConstructor(staticName = "of")
 public class CsvCellDataAccessObject implements CellDataAccessObject<String, CsvTableRow> {
     public static final CsvCellDataAccessObject INSTANCE = CsvCellDataAccessObject.of(
             InstantParser.builder().defaultTime(LocalTime.NOON).build());
     private final InstantParser instantParser;
 
     @Override
-    public @Nullable String getCell(CsvTableRow row, Integer cellIndex) {
+    public String getCell(CsvTableRow row, Integer cellIndex) {
         //noinspection ConstantConditions
         return (cellIndex == null) ? null : row.getCellValue(cellIndex);
     }
 
     @Override
-    public @Nullable String getValue(@Nullable String cell) {
+    public String getValue(String cell) {
         return cell;
     }
 
     @Override
-    public Instant getInstantValue(@Nullable String cell) {
-        @Nullable String value = getValue(cell);
+    public Instant getInstantValue(String cell) {
+        String value = getValue(cell);
         Objects.requireNonNull(value, "Not an instant");
         return instantParser.parseInstant(value);
     }

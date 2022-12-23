@@ -35,8 +35,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class CsvReportPageTest {
 
-    @ParameterizedTest
-    @ValueSource(strings = {"UTF-8", "Windows-1251"})
     void testInputDataCharset(String charsetName) throws IOException {
         String expected = "Текст на UTF-8";
         Charset charset = Charset.forName(charsetName);
@@ -45,14 +43,13 @@ class CsvReportPageTest {
         CsvReportPage reportPage = new CsvReportPage(is, charset, CsvReportPage.getDefaultCsvParserSettings());
 
         //noinspection ConstantConditions
-        @Nullable Object actual = reportPage.getRow(0)
+        Object actual = reportPage.getRow(0)
                 .getCell(0)
                 .getValue();
 
         assertEquals(expected, actual);
     }
 
-    @Test
     void getRow() {
         String[][] rows = new String[][] {
                 {"11", "12"},
@@ -66,8 +63,6 @@ class CsvReportPageTest {
         assertNull(reportPage.getRow(-1));
     }
 
-    @ParameterizedTest
-    @MethodSource("getRowsAndCount")
     void getLastRowNum(String rows, int expectedRowCount) throws IOException {
         InputStream is = new ByteArrayInputStream(rows.getBytes());
         CsvReportPage reportPage = new CsvReportPage(is);
@@ -88,7 +83,6 @@ class CsvReportPageTest {
         };
     }
 
-    @Test
     void findByValue() {
         String[][] rows = new String[][] {
                 {"11", "12"},
@@ -106,7 +100,6 @@ class CsvReportPageTest {
                 reportPage.find("xyz", 0, 2, 0, 2));
     }
 
-    @Test
     void findByPrefix() {
         String[][] rows = new String[][] {
                 {"11", "12"},

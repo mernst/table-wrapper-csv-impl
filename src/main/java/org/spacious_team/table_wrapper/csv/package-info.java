@@ -16,7 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@DefaultQualifier(NonNull.class)
 package org.spacious_team.table_wrapper.csv;
 
 import org.checkerframework.checker.nullness.qual.NonNull;

@@ -154,10 +154,15 @@
                             lombok.launch.AnnotationProcessorHider$AnnotationProcessor
                         </annotationProcessor>
                         <annotationProcessor>
+                            org.checkerframework.common.util.count.AnnotationStatistics
+<!--
                             org.checkerframework.checker.nullness.NullnessChecker
+-->
                         </annotationProcessor>
                     </annotationProcessors>
                     <compilerArgs combine.children="append">
+                        <arg>-Aannotations</arg>
+                        <arg>-Anolocations</arg>
                         <arg>-Awarns</arg>
                         <arg>-Astubs=jdk.astub</arg>
                         <arg>-AskipDefs=.*Test</arg>
